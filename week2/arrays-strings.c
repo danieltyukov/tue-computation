@@ -264,12 +264,6 @@ void replaceChars(char str[], char fromString[], char toChar)
     }
 }
 
-// Write a function void stringReorder(char str[], int index1, int index2) that divides
-//     a string in three parts,
-//     and puts them together in a different way.The string str is cut at the positions
-//         index1 and index2.After splitting the string into substring1,
-//     substring2, substring3 they are reordered to substring3, substring2, substring1.Add the ’R’(reorder) command to your main loop, and read str, index1 and index2 from the keyboard, such that the output looks like this :
-
 void stringReorder(char str[], int index1, int index2)
 {
     int i = 0;
