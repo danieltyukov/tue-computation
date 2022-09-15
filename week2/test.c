@@ -5,6 +5,9 @@
 // strcpy and strlen would need library string.h:
 #include <string.h>
 
+// conditions:
+// || or, && and, ! not
+
 void stringReverseByCopy()
 {
     // initial 8 characters
