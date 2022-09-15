@@ -49,10 +49,14 @@ void task12()
 
     // list size
     int size = sizeof(stringList) / sizeof(char *);
+    // size of none 0 string - 4
+    // printf("size: %d", size);
 
     for (int i = 0; i < size; i++)
     {
         int length = sizeof(string1) / sizeof(char);
+        // size of full array - 12
+        // printf("length: %d", length);
         printArray(stringList[i], length);
     }
 
