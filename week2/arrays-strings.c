@@ -16,6 +16,7 @@ void stringReorder(char *, int, int);
 int findFirstOccurrence(char *, char);
 int readInt(char *, int);
 
+// declaring constant array lengths
 char inputString[LENGTH];
 char inputChar[LENGTH];
 char inputOccurrence[LENGTH];

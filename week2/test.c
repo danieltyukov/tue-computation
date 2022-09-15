@@ -50,6 +50,54 @@ void stringReverseInPlace()
     printf("%s\n", str);
 }
 
+void readingString()
+{
+    // when we scanf:
+    // entering " hello you!" will set myString to "hello"
+
+    // below is a way possible to read a string with spaces
+    // enfing on \n
+
+    char myString[100];
+    printf("Enter string: ");
+    int i = 0;
+    do
+    {
+        // keeps assigning value to prevailing index
+        myString[i] = getchar();
+        i++;
+    } while (myString[i - 1] != '\n');
+    // final position is \0
+    myString[i] = '\0';
+}
+
+void twoDArray()
+{
+    const int rows = 3;
+    const int columns = 4;
+
+    // no error here
+    int twod[rows][columns];
+
+    // init array with variables in 2d plane
+    // requires double loop
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < columns; j++)
+        {
+            twod[i][j] = (i + 1) * (j + 1);
+        }
+    }
+
+    // print the array in 2d visual plane
+    for (int row = 0; row < rows; row++)
+    {
+        for (int column = 0; column < columns; column++)
+            printf("%4d", twod[row][column]);
+        printf("\n");
+    }
+}
+
 int main(void)
 {
     int choice;
@@ -63,5 +111,17 @@ int main(void)
     else if (choice == 2)
     {
         stringReverseInPlace();
+    }
+    else if (choice == 3)
+    {
+        readingString();
+    }
+    else if (choice == 4)
+    {
+        twoDArray();
+    }
+    else
+    {
+        printf("Invalid choice");
     }
 }
