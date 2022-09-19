@@ -8,6 +8,9 @@
 // conditions:
 // || or, && and, ! not
 
+#define ROWS 3
+#define COLS 4
+
 void stringReverseByCopy()
 {
     // initial 8 characters
@@ -41,6 +44,12 @@ void stringReverseInPlace()
     int len = strlen(str);
     // shorter loop to avoid swapping twice
     // directly swaps values from both ends
+
+    // str[0] <-> str[len - 1 - 0]
+    // str[1] <-> str[len - 1 - 1]
+    // str[2] <-> str[len - 1 - 2]
+    // etc ...
+
     for (int i = 0; i < len / 2; i++)
     {
         // value from left
@@ -76,26 +85,24 @@ void readingString()
 
 void twoDArray()
 {
-    const int rows = 3;
-    const int columns = 4;
 
-    // no error here
-    int twod[rows][columns];
+    // in C a constant is a defined value as above not "const"
+    int twod[ROWS][COLS];
 
     // init array with variables in 2d plane
     // requires double loop
-    for (int i = 0; i < rows; i++)
+    for (int i = 0; i < ROWS; i++)
     {
-        for (int j = 0; j < columns; j++)
+        for (int j = 0; j < COLS; j++)
         {
             twod[i][j] = (i + 1) * (j + 1);
         }
     }
 
     // print the array in 2d visual plane
-    for (int row = 0; row < rows; row++)
+    for (int row = 0; row < ROWS; row++)
     {
-        for (int column = 0; column < columns; column++)
+        for (int column = 0; column < COLS; column++)
             printf("%4d", twod[row][column]);
         printf("\n");
     }
