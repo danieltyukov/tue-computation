@@ -108,6 +108,21 @@ void twoDArray()
     }
 }
 
+void heapAndStack()
+{
+    // stack
+    int a;
+
+    // heap
+    int *p;
+    p = (int *)malloc(sizeof(int));
+    *p = 10;
+    free(p);
+    p = NULL;
+    frea(p);
+    p = (int *)malloc(20 * sizeof(int));
+}
+
 int main(void)
 {
     int choice;
@@ -129,6 +144,10 @@ int main(void)
     else if (choice == 4)
     {
         twoDArray();
+    }
+    else if (choice == 5)
+    {
+        heapAndStack();
     }
     else
     {
