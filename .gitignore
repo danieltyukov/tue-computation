@@ -1,53 +1,33 @@
-*.vscode
-# Prerequisites
-*.d
+184
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+# Ignore all
+*
 
-# Linker output
-*.ilk
-*.map
-*.exp
+# Unignore all with extensions
+!*.*
 
-# Precompiled Headers
-*.gch
-*.pch
+# Unignore all dirs
+!*/
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+### Above combination will ignore all files without extension ###
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+# Ignore files with extension `.class` & `.sm`
+*.class
+*.sm
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+# Ignore `bin` dir
+bin/
+# or
+*/bin/*
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
+# Unignore all `.jar` in `bin` dir
+!*/bin/*.jar
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# Ignore all `library.jar` in `bin` dir
+*/bin/library.jar
+
+# Ignore a file with extension
+relative/path/to/dir/filename.extension
+
+# Ignore a file without extension
+relative/path/to/dir/anotherfile
