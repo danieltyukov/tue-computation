@@ -214,6 +214,158 @@ void character_arrays()
     printf("%d\n", number1);
 }
 
+int plus2(int a, int b)
+{
+    return a + b;
+}
+int plus3(int a, int b, int c)
+{
+    int ab = plus2(a, b);
+    int abc = plus2(ab, c);
+    return abc;
+}
+int plus6(int a[N])
+{
+    int sum = 0;
+    for (int i = 0; i < N; i++)
+        sum += a[i];
+    return sum;
+}
+int plusn(int a[], int n)
+{
+    int sum = 0;
+    for (int i = 0; i < n; i++)
+        sum += a[i];
+    return sum;
+}
+int vectormult(int a[N], int b[N])
+{
+    int sum = 0;
+    for (int i = 0; i < N; i++)
+        sum += (a[i] * b[i]);
+    return sum;
+}
+int vectormult2(int a[N], int b[N])
+{
+    int sum = 0;
+    for (int i = 0; i < N; i++)
+        sum = plus2(sum, (a[i] * b[i]));
+    return sum;
+}
+float powr(float b, int e)
+{
+    float r = 1;
+    for (int i = 0; i < e; i++)
+        r *= b;
+    return r;
+}
+// recursive function version - calls itself
+float powr2(float b, int e)
+{
+    if (e < 1)
+        return 1.0;
+    float powr_e_minus_one = powr2(b, e - 1);
+    return b * powr_e_minus_one;
+}
+void functions()
+{
+    printf("1\n");
+    int x, y;
+    printf("integers? ");
+    scanf("%d %d", &x, &y);
+    printf("the sum is %d\n", plus2(x, y));
+
+#define Z 6
+    printf("3\n");
+    int a[Z], sum = 0;
+    printf("integers? ");
+    for (int i = 0; i < Z; i++)
+    {
+        scanf("%d", &a[i]);
+        sum = plus2(sum, a[i]);
+    }
+    printf("the sum is %d\n", sum);
+
+    printf("4\n");
+    int b[Z];
+    printf("integers? ");
+    for (int i = 0; i < Z; i++)
+    {
+        scanf("%d", &b[i]);
+    }
+    printf("the sum is %d\n", plus3(0, plus3(b[0], b[1], b[2]), plus3(b[3], b[4], b[5])));
+    // of course, it would have been smarter to do:
+    // printf("the sum is %d\n", plus2(plus3(a[0], a[1], a[2]), plus3(a[3], a[4], a[5])));
+
+    printf("5\n");
+    int c[Z];
+    printf("integers? ");
+    for (int i = 0; i < Z; i++)
+    {
+        scanf("%d", &c[i]);
+    }
+    printf("the sum is %d\n", plus6(c));
+
+    printf("6\n");
+    int d[Z];
+    printf("integers? ");
+    for (int i = 0; i < Z; i++)
+    {
+        scanf("%d", &d[i]);
+    }
+    printf("the sum is %d\n", plusn(d, Z));
+
+    printf("7\n");
+    int e[Z];
+    printf("integers? ");
+    for (int i = 0; i < Z; i++)
+    {
+        scanf("%d", &e[i]);
+    }
+    for (int i = 1; i <= Z; i++)
+    {
+        printf("the sum of the first %d elements is %d\n", i, plusn(e, i));
+    }
+
+    printf("8\n");
+    int f[Z], g[Z];
+    printf("f? ");
+    for (int i = 0; i < Z; i++)
+        scanf("%d", &f[i]);
+    printf("g? ");
+    for (int i = 0; i < Z; i++)
+        scanf("%d", &g[i]);
+    printf("the product is %d\n", vectormult(f, g));
+
+    printf("9\n");
+    int h[Z], j[Z];
+    printf("h? ");
+    for (int i = 0; i < Z; i++)
+        scanf("%d", &h[i]);
+    printf("j? ");
+    for (int i = 0; i < Z; i++)
+        scanf("%d", &j[i]);
+    printf("the product is %d\n", vectormult2(h, j));
+
+    printf("10\n");
+    float k;
+    int l;
+    printf("base? ");
+    scanf("%f", &k);
+    printf("exponent? ");
+    scanf("%d", &l);
+    printf("the result is %f\n", powr(k, l));
+
+    printf("11\n");
+    float m;
+    int n;
+    printf("base? ");
+    scanf("%f", &m);
+    printf("exponent? ");
+    scanf("%d", &n);
+    printf("the result is %f\n", powr2(m, n));
+}
+
 int main(void)
 {
     int n;
@@ -234,6 +386,7 @@ int main(void)
     }
     else if (n == 5)
     {
+        functions();
     }
     else if (n == 6)
     {
