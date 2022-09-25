@@ -422,6 +422,35 @@ void print_binary(unsigned int u)
         // or: printf("%c", ’0’ + ((u & (1 << i)) != 0));
     }
 }
+void print_binary(unsigned int u)
+{
+    for (int i = 31; i >= 0; i--)
+        if (u & (1 << i))
+            printf("1");
+        else
+            printf("0");
+}
+unsigned int read_binary(void)
+{
+    char s[32];
+    unsigned int u;
+    printf("32-bit binary number? ");
+    // start with the most significant bit (31)
+    for (int i = 31; i >= 0; i--)
+    {
+        // use " %c" to skip spaces
+        scanf(" %c", &s[i]);
+        if (s[i] >= '0' && s[i] <= '1')
+        {
+            u = 2 * u + s[i] - '0';
+        }
+        else
+        {
+            printf("error: ’%c’ is not a binary digit\n", s[i]);
+        }
+    }
+    return u;
+}
 void operators()
 {
     // << is a shift bit left operator
@@ -449,6 +478,139 @@ void operators()
     scanf("%u", &v);
     print_binary(v);
     printf("\n");
+
+    unsigned int w = read_binary();
+    print_binary(w);
+    printf("\n");
+    print_binary(~w);
+    printf("\n");
+
+    // Write a program that asks for two 32-bit unsigned binary numbers and prints their bitwise AND, OR,
+    // and exclusive OR.
+    unsigned int u1, u2;
+    u1 = read_binary();
+    u2 = read_binary();
+    print_binary(u1);
+    printf(" & ");
+    print_binary(u2);
+    printf(" = ");
+    print_binary(u1 & u2);
+    printf("\n");
+    print_binary(u1);
+    printf(" | ");
+    print_binary(u2);
+    printf(" = ");
+    print_binary(u1 | u2);
+    printf("\n");
+    print_binary(u1);
+    printf(" ^ ");
+    print_binary(u2);
+    printf(" = ");
+    print_binary(u1 ^ u2);
+    printf("\n");
+}
+
+void advacned_char_input()
+{
+    char c;
+    printf("characters? ");
+    while (1)
+    {
+        scanf("%c", &c); // or c = getchar();
+        printf("’%c’\n", c);
+    }
+
+    char d;
+    printf("one line? ");
+    do
+    {
+        scanf("%c", &d); // or c = getchar();
+        printf("%c", d);
+    } while (d != '\n');
+
+    char e;
+    printf("one line? ");
+    printf("\"");
+    do
+    {
+        scanf("%c", &e);
+        printf("%c", e);
+    } while (e != '\n');
+    printf("\"\n");
+    // the above version is not right as it would print a \n trailing
+
+    char e1;
+    int first = 1;
+    printf("one line? ");
+    do
+    {
+        scanf("%c", &e1); // or c = getchar();
+        if (first)
+            printf("\"");
+        first = 0;
+        if (e1 != '\n')
+            printf("%c", e1);
+    } while (e1 != '\n');
+    printf("\"\n");
+
+    char f;
+    do
+    {
+        printf("one line? ");
+        int first = 1;
+        do
+        {
+            scanf("%c", &f); // or c = getchar();
+            if (first)
+                printf("\"");
+            first = 0;
+            if (f != '\n')
+                printf("%c", f);
+        } while (c != '\n');
+        printf("\"\n");
+    } while (1);
+
+    // check if letter is before or after k in alphabet
+    char g;
+    printf("one line? ");
+    do
+    {
+        scanf("%c", &g);
+        if (g >= 'a' && g <= 'z')
+        {
+            if (g < 'k')
+                printf("’%c’ comes %d letters earlier in the alphabet than ’k’\n", g, 'k' - g);
+            if (g > 'k')
+                printf("’%c’ comes %d letters later in the alphabet than ’k’\n", g, g - 'k');
+        }
+
+    } while (g != '\n');
+
+    // Write a program (called rot1) that reads a line of text and rotates the letters ’a’ to ’z’ in the alpha-
+    // bet. Thus ’a’ becomes ’b’, ’b’ becomes ’c’, etc. You have to ensure that ’z’ becomes ’a’.
+    char h;
+    printf("one line? ");
+    do
+    {
+        scanf("%c", &h); // or c = getchar();
+        if (h >= 'a' && h < 'z')
+            printf("%c", h + 1);
+        else if (h == 'z')
+            printf("a");
+        else
+            printf("%c", h);
+    } while (h != '\n');
+
+    char j;
+    printf("one line? ");
+    do
+    {
+        scanf("%c", &j); // or c = getchar();
+        if (j >= 'a' && j <= 'z')
+            printf("%c", 'a' + ((j - 'a') + 1) % 26);
+        else
+            printf("%c", j);
+    } while (j != '\n');
 }
 
 int main(void)
@@ -479,6 +641,7 @@ int main(void)
     }
     else if (n == 7)
     {
+        advacned_char_input();
     }
     else
     {
