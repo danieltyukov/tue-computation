@@ -267,6 +267,29 @@ float powr2(float b, int e)
     float powr_e_minus_one = powr2(b, e - 1);
     return b * powr_e_minus_one;
 }
+int sumn(int n)
+{
+    if (n < 1)
+        return 0;
+    int sum_of_0_to_n_minus_one = sumn(n - 1);
+    return sum_of_0_to_n_minus_one + n;
+}
+int mystrlen(char s[])
+{
+    int len = 0;
+    while (s[len] != '\0')
+        len++;
+    return len;
+}
+void mystrcpy(char s[], char t[])
+{
+    int len = 0;
+    while (s[len] != '\0')
+    {
+        t[len] = s[len];
+        len++;
+    }
+}
 void functions()
 {
     printf("1\n");
@@ -364,6 +387,68 @@ void functions()
     printf("exponent? ");
     scanf("%d", &n);
     printf("the result is %f\n", powr2(m, n));
+
+    printf("12\n");
+    int o;
+    printf("sum up to? ");
+    scanf("%d", &o);
+    printf("the sum is %d\n", sumn(o));
+
+    printf("13\n");
+    char string[100];
+    printf("string? ");
+    scanf("%s", &string[0]);
+    printf("length is %d\n", mystrlen(string));
+
+    printf("14\n");
+    char string1[100] = "you should not see this printed 1";
+    char string2[100] = "you should not see this printed 2";
+    printf("string? ");
+    scanf("%s", &string1[0]);
+    mystrcpy(string1, string2);
+    printf("string1=\"%s\"", string1);
+    printf("string2=\"%s\"", string2);
+}
+
+void print_binary(unsigned int u)
+{
+    // start with the most significant bit (31)
+    for (int i = 31; i >= 0; i--)
+    {
+        if (u & (1 << i))
+            printf("1");
+        else
+            printf("0");
+        // or: printf("%c", ’0’ + ((u & (1 << i)) != 0));
+    }
+}
+void operators()
+{
+    // << is a shift bit left operator
+    // >> is a shift bit right operator
+
+    // & binqary AND operator
+    // | binary OR operator
+    // ^ binary XOR operator
+    // ~ binary NOT operator
+
+    for (int i = 0; i < 32; i++)
+        printf("%010u\n", 1 << i);
+
+    int u;
+    printf("number? ");
+    scanf("%u", &u);
+    for (int i = 0; i < 32; i++)
+    {
+        if (u & (1 << i))
+            printf("bit %d is 1\n", i);
+    }
+
+    int v;
+    printf("number? ");
+    scanf("%u", &v);
+    print_binary(v);
+    printf("\n");
 }
 
 int main(void)
@@ -390,6 +475,7 @@ int main(void)
     }
     else if (n == 6)
     {
+        operators();
     }
     else if (n == 7)
     {
