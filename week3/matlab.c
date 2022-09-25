@@ -16,13 +16,14 @@ void print(float matrix[MAXSIZE][MAXSIZE], int rows, int columns, char name)
     }
 }
 
-void add(float matrixA[MAXSIZE][MAXSIZE], int rowsA, int columnsA,
-         float matrixB[MAXSIZE][MAXSIZE], int rowsB, int columnsB,
-         float matrixC[MAXSIZE][MAXSIZE], int rowsC, int columnsC)
+int add(float matrixA[MAXSIZE][MAXSIZE], int rowsA, int columnsA,
+        float matrixB[MAXSIZE][MAXSIZE], int rowsB, int columnsB,
+        float matrixC[MAXSIZE][MAXSIZE], int rowsC, int columnsC)
 {
     if (rowsA != rowsB || columnsA != columnsB)
     {
         printf("Dimensions of A & B do not match\n");
+        return 1;
     }
 
     for (int i = 0; i < rowsA; i++)
@@ -32,9 +33,10 @@ void add(float matrixA[MAXSIZE][MAXSIZE], int rowsA, int columnsA,
             matrixC[i][j] = matrixA[i][j] + matrixB[i][j];
         }
     }
+    return 0;
 }
 
-void mult(
+int mult(
     float matrixA[MAXSIZE][MAXSIZE], int rowsA, int columnsA,
     float matrixB[MAXSIZE][MAXSIZE], int rowsB, int columnsB,
     float matrixC[MAXSIZE][MAXSIZE], int rowsC, int columnsC)
@@ -43,7 +45,18 @@ void mult(
     if (columnsA != rowsB)
     {
         printf("Dimensions of A & B do not match\n");
-        return;
+        return 1;
+    }
+
+    // reset Matrix C back to:
+    // Matrix C (1 X 1)
+    // 0.00
+    for (int i = 0; i < rowsC; i++)
+    {
+        for (int j = 0; j < columnsC; j++)
+        {
+            matrixC[i][j] = 0;
+        }
     }
 
     for (int i = 0; i < rowsA; i++)
@@ -56,6 +69,7 @@ void mult(
             }
         }
     }
+    return 0;
 }
 
 void printRecursive(float matrixA[MAXSIZE][MAXSIZE],
@@ -63,12 +77,12 @@ void printRecursive(float matrixA[MAXSIZE][MAXSIZE],
 {
     if (currentRow == rowsA)
     {
-        printf("enter printRecursive with current row=%d column=%d \n", currentRow, currentColumn);
-        printf("finished the recursion with current row=%d column=%d \n", currentRow, currentColumn);
+        printf("enter printRecursive with current row=%d column=%d\n", currentRow, currentColumn);
+        printf("finished the recursion with current row=%d column=%d\n", currentRow, currentColumn);
         return;
     }
 
-    printf("enter printRecursive with current row=%d column=%d \n", currentRow, currentColumn);
+    printf("enter printRecursive with current row=%d column=%d\n", currentRow, currentColumn);
 
     int nextRow = currentRow;
     int nextColumn = currentColumn + 1;
@@ -82,7 +96,7 @@ void printRecursive(float matrixA[MAXSIZE][MAXSIZE],
     printRecursive(matrixA, rowsA, columnsA, nextRow, nextColumn);
 
     printf("%8.2f\n", matrixA[currentRow][currentColumn]);
-    printf("exit printRecursive with current row=%d column=%d \n", currentRow, currentColumn);
+    printf("exit printRecursive with current row=%d column=%d\n", currentRow, currentColumn);
 }
 
 int main(void)
@@ -138,11 +152,9 @@ int main(void)
                 }
             }
 
-            // this took me a long time
-            // it must be smaller or equal to, to fill in last row
-            for (int i = 0; i <= rowsA; i++)
+            for (int i = 0; i < columnsA; i++)
             {
-                for (int j = 0; j < columnsA; j++)
+                for (int j = 0; j < rowsA; j++)
                 {
                     matrixA[i][j] = temp[i][j];
                 }
@@ -241,16 +253,22 @@ int main(void)
         }
         case '+':
         {
-            add(matrixA, rowsA, columnsA, matrixB, rowsB, columnsB, matrixC, rowsC, columnsC);
-            rowsC = rowsA;
-            columnsC = columnsA;
+            int addition = add(matrixA, rowsA, columnsA, matrixB, rowsB, columnsB, matrixC, rowsC, columnsC);
+            if (addition == 0)
+            {
+                rowsC = rowsA;
+                columnsC = columnsA;
+            }
             break;
         }
         case '*':
         {
-            mult(matrixA, rowsA, columnsA, matrixB, rowsB, columnsB, matrixC, rowsC, columnsC);
-            rowsC = rowsA;
-            columnsC = columnsB;
+            int multiplication = mult(matrixA, rowsA, columnsA, matrixB, rowsB, columnsB, matrixC, rowsC, columnsC);
+            if (multiplication == 0)
+            {
+                rowsC = rowsA;
+                columnsC = columnsB;
+            }
             break;
         }
         default:
