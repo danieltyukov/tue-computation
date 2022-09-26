@@ -48,9 +48,6 @@ int mult(
         return 1;
     }
 
-    // reset Matrix C back to:
-    // Matrix C (1 X 1)
-    // 0.00
     for (int i = 0; i < rowsC; i++)
     {
         for (int j = 0; j < columnsC; j++)
@@ -97,6 +94,85 @@ void printRecursive(float matrixA[MAXSIZE][MAXSIZE],
 
     printf("%8.2f\n", matrixA[currentRow][currentColumn]);
     printf("exit printRecursive with current row=%d column=%d\n", currentRow, currentColumn);
+}
+
+void minorMatrix(float matrixA[MAXSIZE][MAXSIZE], int rowsA, int columnsA,
+                 int r, int c, float min[MAXSIZE][MAXSIZE], float matrixC[MAXSIZE][MAXSIZE])
+{
+
+    if (rowsA < 2 || columnsA < 2)
+    {
+        printf("Matrix A must have at least two rows & columns\n");
+        return;
+    }
+
+    if (r < 0 || r >= rowsA || c < 0 || c >= columnsA)
+    {
+        printf("Rows & columns must be between 0 and %d & %d, respectively\n", rowsA - 1, columnsA - 1);
+        return;
+    }
+
+    for (int i = 0; i < rowsA; i++)
+    {
+        for (int j = 0; j < columnsA; j++)
+        {
+            if (i < r && j < c)
+            {
+                min[i][j] = matrixA[i][j];
+            }
+            else if (i < r && j > c)
+            {
+                min[i][j - 1] = matrixA[i][j];
+            }
+            else if (i > r && j < c)
+            {
+                min[i - 1][j] = matrixA[i][j];
+            }
+            else if (i > r && j > c)
+            {
+                min[i - 1][j - 1] = matrixA[i][j];
+            }
+        }
+    }
+
+    for (int i = 0; i < rowsA - 1; i++)
+    {
+        for (int j = 0; j < columnsA - 1; j++)
+        {
+            matrixC[i][j] = min[i][j];
+        }
+    }
+}
+
+float determinant(float matrixA[MAXSIZE][MAXSIZE], int rowsA, int columnsA)
+{
+
+    float det = 0.0;
+    float min[MAXSIZE][MAXSIZE] = {0};
+    float matrixC[MAXSIZE][MAXSIZE] = {0};
+
+    if (rowsA == 1 && columnsA == 1)
+    {
+        det = matrixA[0][0];
+    }
+    else if (rowsA == 2)
+    {
+        det = matrixA[0][0] * matrixA[1][1] - matrixA[0][1] * matrixA[1][0];
+    }
+    else
+    {
+        int c = 0;
+        // recursively call determinant on the columnsA minors of A along row 0
+        int sign = (c % 2 ? -1 : +1); // the sign for minor(matrixA,0,c)
+        for (int i = 0; i < columnsA; i++)
+        {
+            minorMatrix(matrixA, rowsA, columnsA, 0, i, min, matrixC);
+            det += matrixA[0][i] * determinant(matrixC, rowsA - 1, columnsA - 1) * sign;
+            sign = -sign;
+        }
+    }
+    printf("%d", rowsA);
+    return det;
 }
 
 int main(void)
@@ -168,13 +244,34 @@ int main(void)
         }
         case 'p':
         {
-            // print the elements of matrixA in reverse order
-            // using recursion
             printRecursive(matrixA, rowsA, columnsA, 0, 0);
             break;
         }
         case 'm':
         {
+            float min[MAXSIZE][MAXSIZE] = {0};
+            int r = 0;
+            int c = 0;
+
+            printf("Remove which row & column of matrix A? ");
+            scanf("%d %d", &r, &c);
+
+            minorMatrix(matrixA, rowsA, columnsA, r, c, min, matrixC);
+
+            rowsC = rowsA - 1;
+            columnsC = columnsA - 1;
+
+            break;
+        }
+        case 'd':
+        {
+            if (rowsA != columnsA)
+            {
+                printf("Matrix A must be square\n");
+                break;
+            }
+            float det = determinant(matrixA, rowsA, columnsA);
+            printf("\nThe determinant is %f\n", det);
         }
         case 'B':
         {
