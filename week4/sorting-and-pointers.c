@@ -120,6 +120,31 @@ void insertionSortNames(char *startPos[], int nrNames)
 
 void recoverNames(char names[], char *startPos[], int *nrNames)
 {
+    for (int i = 0; i < LENGTH; i++)
+    {
+        // if the name is not \0
+        if (names[i] != '\0')
+        {
+            // if the name is not in startPos[]
+            if (lookupNamePos(names, startPos, *nrNames, &names[i]) == -1)
+            {
+                // print that the name is garbage
+                printf("Name \"%s\" starts at %d and is garbage\n", &names[i], i);
+
+                // recover the name by adding it to startPos[] from names[] with its original start position
+                startPos[*nrNames] = &names[i];
+                *nrNames = *nrNames + 1;
+            }
+            else
+            {
+                // print that the name is not garbage
+                printf("Name \"%s\" starts at %d and is not garbage\n", &names[i], i);
+            }
+
+            // move i to the next name
+            i += strlen(&names[i]);
+        }
+    }
 }
 
 int main(void)
@@ -196,6 +221,11 @@ int main(void)
         case 'o':
         {
             insertionSortNames(startPos, nrNames);
+            break;
+        }
+        case 'v':
+        {
+            recoverNames(names, startPos, &nrNames);
             break;
         }
         default:
