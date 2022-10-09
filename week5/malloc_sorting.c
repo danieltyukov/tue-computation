@@ -303,6 +303,18 @@ int main(void)
         case 'm':
         {
             mergeSort(persons, 0, nrPersons - 1);
+
+            // if height is equal, sort by name
+            for (int i = 0; i < nrPersons - 1; i++)
+            {
+                if (persons[i].height == persons[i + 1].height)
+                {
+                    if (strcmp(persons[i].name, persons[i + 1].name) > 0)
+                    {
+                        swapPersons(persons, &persons[i], &persons[i + 1]);
+                    }
+                }
+            }
             break;
         }
         default:
