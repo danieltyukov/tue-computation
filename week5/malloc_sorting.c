@@ -3,6 +3,9 @@
 #include <string.h>
 #define LENGTH 30
 
+// use this on exam to keep track of your malloc
+// #include <minigrind.h>
+
 struct person
 {
     char *name;
