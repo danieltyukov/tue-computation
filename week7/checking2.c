@@ -32,5 +32,6 @@ int main()
         // *() where is that address inside ptr e.g 1000 pointing to
         printf("%d \n", *(ptr + i));
     }
+    free(ptr);
     return 0;
 }
