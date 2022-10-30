@@ -245,6 +245,64 @@ char *findWordAtIndex(entry_t concordance[], int index)
     return NULL;
 }
 
+void printOriginalText(entry_t concordance[])
+{
+
+    int max = -1;
+
+    for (int i = 0; i < MAXWORDS; i++)
+    {
+
+        if (!concordance[i].word)
+            break;
+
+        if (max < concordance[i].indices[0])
+            max = concordance[i].indices[0];
+    }
+
+    entry_t e[max + 1];
+
+    for (int i = 0; i < max; i++)
+    {
+
+        e[i].word = NULL;
+
+        memset(e[i].indices, -1, sizeof(e[i].indices));
+    }
+
+    for (int i = 0; i < MAXWORDS; i++)
+    {
+
+        if (!concordance[i].word || concordance[i].indices[0] == -1)
+            continue;
+
+        e[concordance[i].indices[0]].word = (char *)malloc((strlen(concordance[i].word) + 1) * sizeof(char));
+
+        strcpy(e[concordance[i].indices[0]].word, concordance[i].word);
+    }
+
+    for (int i = 0; i < max + 1; i++)
+    {
+
+        if (!e[i].word)
+            printf("?");
+
+        else
+        {
+
+            printf("%s", e[i].word);
+
+            free(e[i].word);
+        }
+
+        if (i != max)
+            printf(" ");
+
+        else
+            printf("\n");
+    }
+}
+
 void swap(entry_t *c1, entry_t *c2)
 {
 
@@ -253,6 +311,31 @@ void swap(entry_t *c1, entry_t *c2)
     *c1 = *c2;
 
     *c2 = tmp;
+}
+
+void sortConcordance(entry_t concordance[])
+{
+
+    for (int i = 0; i < MAXWORDS; i++)
+    {
+
+        for (int j = 0; j < MAXWORDS - i - 1; j++)
+        {
+
+            if (!concordance[j + 1].word)
+                break;
+
+            if (concordance[j].indices[0] > concordance[j + 1].indices[0])
+                swap(&concordance[j], &concordance[j + 1]);
+
+            else if (concordance[j].indices[0] == concordance[j + 1].indices[0])
+            {
+
+                if (strcmp(concordance[j].word, concordance[j + 1].word) > 0)
+                    swap(&concordance[j], &concordance[j + 1]);
+            }
+        }
+    }
 }
 
 int main(void)
@@ -357,6 +440,18 @@ int main(void)
 
             else
                 printf("The word at index %d is %s\n", index, findWordAtIndex(concordance, index));
+
+            break;
+
+        case 'o':
+
+            printOriginalText(concordance);
+
+            break;
+
+        case 's':
+
+            sortConcordance(concordance);
 
             break;
 

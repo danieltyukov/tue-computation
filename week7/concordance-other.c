@@ -47,9 +47,9 @@ void addWord(entry_t concurdance[], char *word)
         }
     }
 
-    int j;
     // using bubble sort, sort the array in alphabetical order
     // includes words and their indices
+    int j;
     for (i = 0; i < MAXWORDS - 1; i++)
     {
         for (j = 0; j < MAXWORDS - i - 1; j++)
