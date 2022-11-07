@@ -143,7 +143,7 @@ int longestWord(char *dict[], int from)
     int longestWord = -1;
     int length = 0;
     
-    for (int i=0; i<MAXWORDS; i++)
+    for (int i=from; i<MAXWORDS; i++)
     {
         if (dict[i] != NULL)
         {
@@ -158,14 +158,33 @@ int longestWord(char *dict[], int from)
     return longestWord;
 }
 
-//sortedUntil = 0
 void sortDict(char *dict[], int sortedUntil)
 {
+    int i = nrWords(dict);
     
+    // empty
+    if (i == 0)
+    {
+        return;
+    }
+    
+    // sortedUntil index = nrWords
+    if (sortedUntil == i-1)
+    {
+        return;
+    }
+    
+    i = longestWord(dict, sortedUntil);
+    // if first is smaller than the last
+    if (strlen(dict[sortedUntil]) < strlen(dict[i]))
+    {
+        // we swap it
+        swapWords(dict, dict[sortedUntil], dict[i]);
+        printf("swapped %d and %d\n", i, sortedUntil);
+    }
+    sortDict(dict, sortedUntil + 1);
 }
    
-
-
 int main (void)
 {
     char cmd;
@@ -258,8 +277,7 @@ int main (void)
             {
                 int sortedUntil = 0;
                 sortDict(dict, sortedUntil);
-                
-                
+                break;
             }
             
             default:
