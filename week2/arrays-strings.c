@@ -1,21 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define LENGTH 30
-
-void task12();
-void task3();
-void options();
-void printArray();
-void printString();
-void readLine();
-
-void insertChar(char *, char, int);
-void replaceChars(char *, char *, char);
-void stringReorder(char *, int, int);
-
-int findFirstOccurrence(char *, char);
-int readInt(char *, int);
-
 // declaring constant array lengths
 char inputString[LENGTH];
 char inputChar[LENGTH];
@@ -28,127 +13,6 @@ char inputReplaceWith[LENGTH];
 
 char inputIndex1[LENGTH];
 char inputIndex2[LENGTH];
-
-int main()
-{
-    // you can uncomment these tasks to play arounf with task 1-3
-    // task12();
-    // task3();
-
-    options();
-}
-
-void task12()
-{
-    char string1[12] = "hello";
-    char string2[12] = "hello\n";
-    char string3[12] = "hello\n\0you\n";
-    char string4[12] = "0123456789AB";
-
-    // put the arrays in a list
-    char *stringList[4] = {string1, string2, string3, string4};
-
-    // list size
-    int size = sizeof(stringList) / sizeof(char *);
-    // size of none 0 string - 4
-    // printf("size: %d", size);
-
-    for (int i = 0; i < size; i++)
-    {
-        int length = sizeof(string1) / sizeof(char);
-        // size of full array - 12
-        // printf("length: %d", length);
-        printArray(stringList[i], length);
-    }
-
-    for (int i = 0; i < size; i++)
-    {
-        printString(stringList[i]);
-    }
-}
-
-void task3()
-{
-    char inputString[LENGTH];
-    while (1)
-    {
-        printf("String? ");
-        readLine(inputString, LENGTH);
-        printArray(inputString, LENGTH);
-        printString(inputString);
-    }
-}
-
-void options()
-{
-    do
-    {
-        printf("Command? ");
-        readLine(inputChar, LENGTH);
-        switch (inputChar[0])
-        {
-
-        case 'q':
-            printf("Bye!\n");
-            break;
-
-        case 'p':
-            printf("The current string is: ");
-            printString(inputString);
-            break;
-
-        case 'a':
-            printf("The current array is: ");
-            printArray(inputString, LENGTH);
-            break;
-
-        case 's':
-            printf("Please enter a string? ");
-            readLine(inputString, LENGTH);
-            break;
-
-        case 'o':
-            printf("Find first occurrence of which character? ");
-            readLine(inputOccurrence, LENGTH);
-            int index = findFirstOccurrence(inputString, inputOccurrence[0]);
-            printf("The first occurrence of '%c' is at index %d\n", inputOccurrence[0], index);
-            break;
-
-        case 'i':
-            printf("Insert which character? ");
-            readLine(inputCharacter, LENGTH);
-            printf("At what index? ");
-            readLine(inputPosition, LENGTH);
-            int finalIndex = readInt(inputPosition, LENGTH);
-            insertChar(inputString, inputCharacter[0], finalIndex);
-            break;
-
-        case 'r':
-            printf("Replace which characters? ");
-            readLine(inputReplace, LENGTH);
-            printf("with which character? ");
-            readLine(inputReplaceWith, LENGTH);
-            replaceChars(inputString, inputReplace, inputReplaceWith[0]);
-            break;
-
-        case 'R':
-            printf("Please enter index 1? ");
-            readLine(inputIndex1, LENGTH);
-            printf("Please enter index 2? ");
-            readLine(inputIndex2, LENGTH);
-
-            int index1 = readInt(inputIndex1, LENGTH);
-            int index2 = readInt(inputIndex2, LENGTH);
-
-            stringReorder(inputString, index1, index2);
-            break;
-
-        default:
-            printf("Unknown command '%c'\n", inputChar[0]);
-            break;
-        }
-    } while (inputChar[0] != 'q');
-}
 
 void printArray(char a[], int length)
 {
@@ -319,4 +183,76 @@ void stringReorder(char str[], int index1, int index2)
         k++;
     }
     str[i] = '\0';
+}
+
+
+int main()
+{
+    do
+    {
+        printf("Command? ");
+        readLine(inputChar, LENGTH);
+        switch (inputChar[0])
+        {
+
+        case 'q':
+            printf("Bye!\n");
+            break;
+
+        case 'p':
+            printf("The current string is: ");
+            printString(inputString);
+            break;
+
+        case 'a':
+            printf("The current array is: ");
+            printArray(inputString, LENGTH);
+            break;
+
+        case 's':
+            printf("Please enter a string? ");
+            readLine(inputString, LENGTH);
+            break;
+
+        case 'o':
+            printf("Find first occurrence of which character? ");
+            readLine(inputOccurrence, LENGTH);
+            int index = findFirstOccurrence(inputString, inputOccurrence[0]);
+            printf("The first occurrence of '%c' is at index %d\n", inputOccurrence[0], index);
+            break;
+
+        case 'i':
+            printf("Insert which character? ");
+            readLine(inputCharacter, LENGTH);
+            printf("At what index? ");
+            readLine(inputPosition, LENGTH);
+            int finalIndex = readInt(inputPosition, LENGTH);
+            insertChar(inputString, inputCharacter[0], finalIndex);
+            break;
+
+        case 'r':
+            printf("Replace which characters? ");
+            readLine(inputReplace, LENGTH);
+            printf("with which character? ");
+            readLine(inputReplaceWith, LENGTH);
+            replaceChars(inputString, inputReplace, inputReplaceWith[0]);
+            break;
+
+        case 'R':
+            printf("Please enter index 1? ");
+            readLine(inputIndex1, LENGTH);
+            printf("Please enter index 2? ");
+            readLine(inputIndex2, LENGTH);
+
+            int index1 = readInt(inputIndex1, LENGTH);
+            int index2 = readInt(inputIndex2, LENGTH);
+
+            stringReorder(inputString, index1, index2);
+            break;
+
+        default:
+            printf("Unknown command '%c'\n", inputChar[0]);
+            break;
+        }
+    } while (inputChar[0] != 'q');
 }
