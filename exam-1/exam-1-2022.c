@@ -125,6 +125,43 @@ void readFile(product_t *database, int dbSize, char *fileName) {
     }
 }
 
+product_t * findProduct(product_t *database, int dbSize, char *product, int lower, int upper) {
+    // returns pointer to product or NULL if not in db
+    // see if equal with middle if not search one half, then half again then other half
+
+    // print: The price of "product" is "price"
+    // or
+    // print: Product not found
+
+    int mid = (lower+upper)/2;
+    printf("find range (%d,%d)\n", lower, upper);
+
+    if (lower > upper) {
+        // wrong input
+        return NULL;
+    }
+
+    if (strcmp(database[mid].product, product) == 0) {
+        return &database[mid];
+    }
+    else if (strcmp(database[mid].product, product) > 0) {
+        return findProduct(database, dbSize, product, lower, mid - 1);
+    }
+    else {
+        return findProduct(database, dbSize, product, mid + 1, upper);
+    }
+}
+
+int countAmountofProductinDB(product_t *database, int dbSize) {
+    int counter = 0;
+    for (int i = 0; i<dbSize; i++) {
+        if (database[i].product != NULL) {
+            counter++;
+        }
+    }
+    return counter;
+}
+
 int main(void) {
     char cmd;
     product_t * database = NULL;
@@ -182,6 +219,18 @@ int main(void) {
             case 's':
             {
                 sortOnPrice(database, dbSize);
+                break;
+            }
+            case 'f':
+            {
+                char productName[11];
+                printf("Product? ");
+                scanf(" %s", productName);
+                int count = countAmountofProductinDB(database, dbSize);
+                product_t * location = findProduct(database, dbSize, productName, 0, (count-1));
+                if (location != NULL) { 
+                    printf("The price of %s is %.2f\n", productName, location->price);
+                }
                 break;
             }
             default:
