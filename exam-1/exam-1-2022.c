@@ -231,6 +231,9 @@ int main(void) {
                 if (location != NULL) { 
                     printf("The price of %s is %.2f\n", productName, location->price);
                 }
+                else {
+                    printf("Product not found\n");
+                }
                 break;
             }
             default:
