@@ -1,7 +1,4 @@
-# NOTE
+# Eindhoven University of Technology C Programming Exercises - 2022 😎
 
-As it seems that the repository is getting a lot of traction.
-
-I was advices to write that please use it for the sake of checking and writing your own code but not copying.
-
-## Consider staring the repo as well
+## Have Fun and C You Around 😂
+## Consider Staring The Repo as Well ⭐
