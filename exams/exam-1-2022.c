@@ -65,7 +65,7 @@ void addProduct(product_t *database, int dbSize, char *product, float price) {
     product_t swap;
     for (int i = 0; i<dbSize-1; i++) {
         for (int j =0; j<dbSize-1-i; j++) {
-            if (database[j].product != 0 && database[j+1].product != 0) {
+            if (database[j].product != NULL && database[j+1].product != NULL) {
                 if (strcmp(database[j].product, database[j+1].product) > 0) {
                     swap = database[j];
                     database[j] = database[j+1];
