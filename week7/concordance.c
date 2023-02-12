@@ -151,7 +151,7 @@ void removeWord(entry_t concordance[], char *word) {
         }
     }
     
-    for (int i = foundIndex+1; i<MAXWORDS-i; i++) {
+    for (int i = foundIndex+1; i<MAXWORDS; i++) {
         if (concordance[i].word != NULL) {
             concordance[i-1] = concordance[i];
             concordance[i].word = NULL;
@@ -226,7 +226,7 @@ void sortConcordance(entry_t concordance[]) {
     
     for (int i = 0; i<MAXWORDS-1; i++) {
         for (int j = 0; j<MAXWORDS-1-i; j++) {
-            if (concordance[j].word != NULL && concordance[j+1].word) {
+            if (concordance[j].word != NULL && concordance[j+1].word != NULL) {
                 if (concordance[j].indices[0] > concordance[j+1].indices[0]) {
                     entry_t temp = concordance[j];
                     concordance[j] = concordance[j+1];
