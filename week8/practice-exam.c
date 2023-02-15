@@ -173,10 +173,8 @@ void sortDict(char *dict[], int sortedUntil) {
     if (sortedUntil+1 == MAXWORDS) {
         return;
     }
-    if (dict[sortedUntil+1] == NULL) {
-        return;
-    }
     
+    // find longest index
     for (int i = sortedUntil+1; i<MAXWORDS; i++) {
         if (dict[i]!=NULL) {
             if (strlen(dict[longestIndex])<strlen(dict[i])) {
@@ -188,8 +186,7 @@ void sortDict(char *dict[], int sortedUntil) {
         }
     }
     
-    char * temp = NULL;
-    temp = dict[sortedUntil];
+    char * temp = dict[sortedUntil];
     dict[sortedUntil] = dict[longestIndex];
     dict[longestIndex] = temp;
     

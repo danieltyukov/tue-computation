@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+// #include "predefined.h" /* Do not delete this line. Do not define row_t yourself. */
 
 typedef struct _product_t {
     char *product;
